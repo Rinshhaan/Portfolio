@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammed Rinshan P | Frontend Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Outfit:wght@300;400;600;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div id="loader" class="loader">
+  <div class="l-text">INITIALIZING_WORLD<span>_</span></div>
+  <div class="l-bar"><div class="l-fill" id="loaderFill"></div></div>
+</div>
+
+<div id="cur" class="cursor"></div>
+<div id="curRing" class="cursor-ring"></div>
+
+<nav class="nav-bar" id="nav">
+  <div class="nav-logo">MRP<span>.</span></div>
+  <div class="nav-center-pill">
+    <div class="nav-links" id="navLinks" aria-label="Primary navigation"></div>
+  </div>
+  <div class="nav-actions">
+    <a href="#contact" class="nav-hire">Let's Talk</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <div class="nav-drawer-links" id="navDrawerLinks"></div>
+</div>
+
+<div id="scrollBar" class="scroll-bar"></div>
+
+<div class="story-quote-bar" id="storyQuoteBar" aria-live="polite">
+  <span class="quote-label">// journey.log</span>
+  <p class="quote-text" id="storyQuoteText">Every great build starts with a single curious thought.</p>
+</div>
+
+<canvas id="heroCanvas" class="hero-canvas"></canvas>
+
+<main id="mainWrap">
+  
+  <div class="world-viewport" id="worldViewport">
+    <div class="chapter-rail" id="chapterRail" aria-label="Story chapters">
+      <button class="ch-dot active" data-chapter="0" aria-label="Chapter I — The Origin"><span>01</span></button>
+      <button class="ch-dot" data-chapter="1" aria-label="Chapter II — The Discovery"><span>02</span></button>
+      <button class="ch-dot" data-chapter="2" aria-label="Chapter III — The Spark"><span>03</span></button>
+      <button class="ch-dot" data-chapter="3" aria-label="Chapter IV — The Path Ahead"><span>04</span></button>
+    </div>
+    <div class="scene-vignette" id="sceneVignette" data-chapter="0"></div>
+    
+    <div class="world-container" id="worldContainer">
+
+      <section class="scene" id="scene-room">
+        <div class="room-backdrop"></div>
+        <div class="desk-assembly">
+          <div class="pc-monitor">
+            <div class="screen-glow"></div>
+            <div class="terminal-box" id="codeTerminal">
+              <div class="term-head">
+                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                <span class="term-title">rinshan@portfolio: ~</span>
+              </div>
+              <div class="term-body">
+                <div class="term-line"><span class="t-dim">~/projects $</span> ./start_portfolio.sh</div>
+                <div class="term-line success">System initialized.</div>
+                <div class="term-line"><span class="t-dim">~/projects $</span> <span class="t-cursor" id="termCursor">█</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="desk-surface">
+            <div class="keyboard"></div>
+            <div class="coffee-mug"><div class="steam"></div><div class="steam s2"></div></div>
+          </div>
+        </div>
+        
+        <div class="chapter-banner">
+          <span class="ch-num">Chapter I</span>
+          <h2 class="ch-title">The Origin</h2>
+          <p class="ch-quote">"I didn't choose code — I chose to build a path worth walking."</p>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-nature">
+        <div class="nat-bg">
+          <div class="nat-layer m-back" data-speed="0.1"></div>
+          <div class="nat-layer m-mid" data-speed="0.3"></div>
+          <div class="nat-layer m-front" data-speed="0.6"></div>
+          <div class="nat-layer trees" data-speed="0.9"></div>
+        </div>
+        <div class="butterfly-wrap">
+          <div class="butterfly bt1"><div class="bt-wing bl"></div><div class="bt-wing br"></div></div>
+          <div class="butterfly bt2"><div class="bt-wing bl"></div><div class="bt-wing br"></div></div>
+        </div>
+        <div class="chapter-banner right-align">
+          <span class="ch-num">Chapter II</span>
+          <h2 class="ch-title">The Discovery</h2>
+          <p class="ch-quote">"The world holds real problems — I learn to see them, then solve them."</p>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-town">
+        <div class="town-bg">
+          <div class="tw-layer tw-back"></div>
+          <div class="tw-layer tw-mid"></div>
+          <div class="tw-layer tw-front"></div>
+        </div>
+        <div class="pov-problems">
+          <div class="prob-sign p1">Real people need better tools.</div>
+          <div class="prob-sign p2">What if we redesigned this?</div>
+          <div class="prob-sign p3">Learn. Build. Repeat.</div>
+        </div>
+        <div class="insight-wrap">
+          <div class="lightbulb">IDEA</div>
+          <div class="ray r1"></div><div class="ray r2"></div><div class="ray r3"></div>
+          <p>Build it.</p>
+        </div>
+        <div class="chapter-banner town-banner">
+          <span class="ch-num">Chapter III</span>
+          <h2 class="ch-title">The Spark</h2>
+          <p class="ch-quote">"Passion isn't hype — it's staying up to turn an idea into something real."</p>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-return">
+        <div class="return-bg">
+          <div class="dw-stars" id="returnStars"></div>
+          <div class="dw-glow"></div>
+        </div>
+        <div class="firefly-wrap" id="fireflyWrap"></div>
+        
+        <div class="door-wrapper" id="returnDoor">
+          <div class="door-frame">
+            <div class="door-panel">
+               <div class="portal-glow"></div>
+            </div>
+            <div class="door-light"></div>
+          </div>
+        </div>
+        <div class="chapter-banner return-banner">
+          <span class="ch-num">Chapter IV</span>
+          <h2 class="ch-title">The Path Ahead</h2>
+          <p class="ch-quote">"My journey isn't finished — it's unfolding, one build at a time."</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="about-section" id="about">
+    <div class="sec-container ab-grid-wrap">
+      <div class="ab-grid">
+        <div class="ab-content">
+          <h3 class="sec-subtitle">Who am I?</h3>
+          <h2 class="sec-title">Mohammed Rinshan P</h2>
+          <p class="ab-desc">
+            I am a B.Tech AI & Data Science student with a profound love for Frontend Web Development. 
+            I build outstanding, highly animated, and performant web experiences. I am constantly learning, adapting, 
+            and actively pushing code to bring visionary designs to life.
+          </p>
+          <div class="fresher-highlights">
+            <div class="f-high">
+              <span class="f-icon">🧠</span>
+              <span class="f-text">AI & Data Science</span>
+            </div>
+            <div class="f-high">
+              <span class="f-icon">⚡</span>
+              <span class="f-text">Interactive Frontend</span>
+            </div>
+            <div class="f-high">
+              <span class="f-icon">🌱</span>
+              <span class="f-text">Continuous Learner</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ab-visual">
+          <div class="profile-pic-zone" id="profileZone" title="Click to upload your profile picture">
+            <div class="orbit-ring or-1">
+              <div class="orbit-item o-top">Python</div>
+              <div class="orbit-item o-bot">C</div>
+            </div>
+            <div class="orbit-ring or-2">
+              <div class="orbit-item o-left">Git</div>
+              <div class="orbit-item o-right">React</div>
+            </div>
+            <div class="orbit-ring or-3">
+              <div class="orbit-item o-top">AI</div>
+              <div class="orbit-item o-bot">ML</div>
+            </div>
+            <div class="profile-inner">
+              <img id="profileImg" src="" alt="Profile Picture" />
+              <div class="p-placeholder" id="profilePlaceholder">
+                <span class="p-icon">📷</span>
+                <span>Upload Photo</span>
+              </div>
+            </div>
+            <input type="file" id="profileFileInput" accept="image/*" hidden />
+          </div>
+        </div>
+      </div>
+      
+      <div class="tech-stack-wrap">
+        <h3 class="sec-subtitle center">My Toolkit</h3>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section" id="projects">
+    <div class="sec-container">
+      <div class="projects-header">
+        <span class="sec-subtitle">portfolio.projects</span>
+        <h2 class="sec-title">Built With Purpose</h2>
+        <p class="projects-intro">Real projects shaped by curiosity — each one a step in learning, building, and solving problems that matter.</p>
+      </div>
+      <div class="proj-grid" id="projectsGrid"></div>
+      
+      <div class="global-actions" style="text-align: center; margin-top: 50px;">
+        <a href="https://github.com/YOUR_USERNAME" target="_blank" class="btn-primary github-btn">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View All Projects on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="sec-container">
+      <div class="contact-layout">
+        <div class="contact-copy">
+          <span class="sec-subtitle">Contact.js</span>
+          <h2 class="sec-title">Let's Build Something.</h2>
+          <p>Type your details straight into the code and run the message function.</p>
+        </div>
+
+        <form class="contact-monitor" id="contactForm">
+          <div class="monitor-3d-wrap" id="contactMonitor3D">
+            <div class="monitor-shell">
+              <div class="monitor-camera"></div>
+              <div class="editor-frame">
+                <div class="term-head">
+                  <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                  <span class="term-title">contact.js - message payload</span>
+                </div>
+                <div class="contact-code" id="contactCode">
+                  <label class="code-field" data-field="name">
+                    <span class="line-no">01</span>
+                    <span class="token keyword">const</span> <span class="token variable">name</span> <span class="token operator">=</span> <span class="token string">"</span><input type="text" name="name" placeholder="your name" autocomplete="name" required><span class="token string">"</span><span class="token punctuation">;</span>
+                  </label>
+                  <label class="code-field" data-field="email">
+                    <span class="line-no">02</span>
+                    <span class="token keyword">const</span> <span class="token variable">email</span> <span class="token operator">=</span> <span class="token string">"</span><input type="email" name="email" placeholder="you@email.com" autocomplete="email" required><span class="token string">"</span><span class="token punctuation">;</span>
+                  </label>
+                  <label class="code-field message-field" data-field="message">
+                    <span class="line-no">03</span>
+                    <span class="token keyword">const</span> <span class="token variable">project</span> <span class="token operator">=</span> <span class="token string">`</span><textarea name="message" placeholder="Tell me about your project..." rows="4" required></textarea><span class="token string">`</span><span class="token punctuation">;</span>
+                  </label>
+                  <div class="code-line">
+                    <span class="line-no">04</span>
+                    <span class="code-content"><span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token variable">name</span><span class="token punctuation">,</span> <span class="token variable">email</span><span class="token punctuation">,</span> <span class="token variable">project</span><span class="token punctuation">);</span></span>
+                  </div>
+                  <div class="code-console" id="contactConsole">// 0/3 variables assigned...</div>
+                </div>
+              </div>
+              <div class="monitor-neck"></div>
+              <div class="monitor-base"></div>
+              <div class="monitor-glow"></div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary" id="contactSubmitBtn">Run sendMessage()</button>
+          <div class="ef-success" id="efSuccess">Message sequence initiated. I'll reply soon.</div>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2026 Mohammed Rinshan P. Designed with code and caffeine.</p>
+    </footer>
+  </section>
+
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>
